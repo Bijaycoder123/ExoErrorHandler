@@ -1,0 +1,271 @@
+﻿@model MODEL.Project
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Project Details</h2>
+
+
+<div class="panel panel-info text-left mar-b-10">
+    <div class="panel-heading">
+        <div id="gridToolBar">
+            <button type="button" class="btn btn-pri" id="btnAddServices">
+                <i class="mdif mdif-plus px-3"></i>
+                Add
+            </button>
+            <button type="button" class="btn btn-success" id="btnEditServices">
+                <i class="mdif mdif-edit"></i>
+                Edit
+            </button>
+            <button type="button" class="btn btn-dan" id="btnDeleteServices">
+                <i class="mdif mdif-close"></i>
+                Delete
+            </button>
+            <button type="button" class="btn btn-success" id="btnRefresh">
+                <i class="mdif mdif-edit"></i>
+                Refresh
+            </button>
+            @*<div class="olSearch fr float-right">
+                <input type="text" id="Search" placeholder="Enter product/category name For Search" name="Search" class="inputComn houseText form-control" />
+                <div class="searchIcon">
+                <button id="btnSearch" type="button" class="btn btn-primary ">Search</button>
+                </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+@*popup*@
+<div id="ddProjectDetail" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add/Edit Project</h4>
+                <button type="button" class="close position-absolute top-0 end-0" data-dismiss="modal" aria-label="Close" id="btnClose"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-suc" id="btnSaveServices">
+                    <i class="mdif mdif-save"></i>
+                    Save
+                </button>
+                <button type="button" class="btn btn-info" id="btnCancel" data-dismiss="modal">
+                    <i class="mdif mdif-close"></i>
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+
+
+
+
+
+    @(Html.Kendo().Grid<MODEL.Project>()
+            .Name("KGproject")
+            .Columns(columns =>
+            {
+
+                columns.Bound(p => p.ProjectId).Width(20).Hidden();
+                columns.Bound(p => p.ProjectName).Width(20);
+                columns.Bound(p => p.ProjectDescription).Width(20);
+                columns.Bound(p => p.OrganizationName).Width(20);
+
+                columns.Template(p => { }).ClientTemplate("<button type='button' onclick='ViewDetails(#:ProjectId#, this);' >View</button>").Width(20).Title("Action");
+
+            })
+            .Scrollable(s => s.Height("auto"))
+            .Pageable(pageable => pageable
+            .ButtonCount(5)
+            .PageSizes(new int[] { 10, 50, 100 })
+            .Refresh(true))
+            .Filterable(filterable => filterable
+            .Extra(false)
+            .Operators(operators => operators
+            .ForString(str => str.Clear()
+            .StartsWith("Starts with")
+            .IsEqualTo("Is equal to")
+            .IsNotEqualTo("Is not equal to")
+            .Contains("Contains")
+            ))
+            )
+            .Sortable()
+            .Selectable(selectable => selectable
+            .Mode(GridSelectionMode.Single)
+            .Type(GridSelectionType.Row))
+            //.ClientDetailTemplateId("template")
+            .DataSource(dataSource => dataSource
+            .Ajax()
+            //.Sort(x => x.Add("Product_ID").Descending())
+            .PageSize(10)
+           // .Read(read => read.Action("GetAllProducts", "Product",new {@Search=""}))
+           .Read(read => read.Action("Index1", "Project"))
+            )
+            .Resizable(resize => resize.Columns(true))
+            )
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#btnDeleteServices').on("click", function () {
+            debugger
+            var grid = $('#KGproject').data("kendoGrid");
+            var selectedRow = grid.dataItem(grid.select());
+            var title = 'Disable Project';
+            $("#ddProjectDetail .modal-title").text(title);
+            if (selectedRow != null) {
+                var  ProjectId = selectedRow.ProjectId;
+                var ans = confirm("Are you sure you want to delete this Record?");
+                if (ans) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "@Url.Content("~/Project/Delete")",
+                        data: { Id: ProjectId },
+                        success: function (result) {
+                            debugger;
+                            //$("#ddProjectDetail").modal('hide');
+                            //$('#KGorganization').data('kendoGrid').dataSource.read();
+                            //$('#KGorganization').data('kendoGrid').refresh();
+                            //ShowMessage('success', 'Success', result.ReturnMessage);
+                            //debugger;
+                            if (result.IsSuccess = true) {
+                                debugger;
+                                $("#ddProjectDetail").modal('hide');
+                                $('#KGproject').data('kendoGrid').dataSource.read();
+                                $('#KGproject').data('kendoGrid').refresh();
+                                ShowMessage('success', 'success', result.ReturnMessage);
+                            }
+                            else {
+                                ShowMessage('success', 'success', result.ReturnMessage);
+                            }
+                        }
+                     });
+                }
+            }
+            else {
+                ShowMessage('warning', 'Warning', 'Please Select Row first..');
+            }
+        });
+    });
+
+
+      $('#btnAddServices').on("click", function ()
+            {
+                var title = 'Add Product Detail'
+                var ProductId= 0;
+                $("#ddProjectDetail .modal-title").text(title);
+                $.ajax({
+                type: 'GET',
+                url: '@Url.Content("~/Project/AddEdit")',
+                data: { id: 0 },
+                success: function (node)
+                {
+                    $('#ddProjectDetail .modal-body').empty().html(node);
+                    $('#ddProjectDetail').modal('show');
+                }
+                });
+      });
+
+            $('#btnSaveServices').on("click", function () {
+                debugger;
+                //$.validator.setDefaults({ ignore: [] });
+                //$('#OrganizationId').removeData("validator").removeData("unobtrusiveValidation");
+                var projectId = parseInt($('#ProjectId').val());
+                //var m = $('#OrganizationId').valid();
+                if (typeof projectId === 'undefined')
+                {
+                    projectId = 0;
+                }
+                $.validator.setDefaults({ ignore: [] });
+                $('#projectFormValidate').removeData("validator").removeData("unobtrusiveValidation");
+                var validator = $("#projectFormValidate").validate();
+
+              /*  $.validator.unobtrusive.parse($('#organizationFormValidate'));*/
+                if ($('#projectFormValidate').valid()) {
+                var model = {
+                    projectId: projectId,
+                    ProjectName: $('#ProjectName').val(),
+                    ProjectDescription: $('#ProjectDescription').val(),
+                    OrganizationId: $('#OrganizationId').val(),
+                }
+                    $.ajax({
+                        type: 'POST',
+                        url: "@Url.Content("~/Project/AddEdit")",
+                        data: model,
+                        success: function (result) {
+                            debugger;
+                            console.log("nischal" + result);
+                             //$("#ddProjectDetail").modal('hide');
+                             //   $('#KGorganization').data('kendoGrid').dataSource.read();
+                             //   $('#KGorganization').data('kendoGrid').refresh();
+                             //   ShowMessage('success', 'Success', 'Saved Successfully');
+                            if (result.IsSuccess == true) {
+                                debugger;
+                                $("#ddProjectDetail").modal('hide');
+                                $('#KGproject').data('kendoGrid').dataSource.read();
+                                $('#KGproject').data('kendoGrid').refresh();
+                                ShowMessage('success', 'Success', result.ReturnMsg);
+                            }
+                            else if ((result.IsSuccess == false)) {
+                                ShowMessage('warning', 'Warning', result.ReturnMsg)
+                            }
+                            else
+                            {
+                                /*ShowMessage('error', 'error', result.ReturnMessage)*/
+                                ShowMessage('error', 'Error', 'Error in saving!!!!')
+                            }
+                        }
+                    });
+                }
+            });
+                    //Project Edit
+
+
+    $('#btnEditServices').on("click", function () {
+            debugger
+            var grid = $('#KGproject').data("kendoGrid");
+            var selectedRow = grid.dataItem(grid.select());
+            var title = 'Edit Project Details'
+            $("#ddProjectDetail .modal-title").text(title);
+            if (selectedRow != null) {
+                ProjectId = selectedRow.ProjectId;
+                $.ajax({
+                    url: '@Url.Content("~/Project/AddEdit")',
+                    type: 'GET',
+                    data: { id: ProjectId },
+                    success: function (node) {
+                    $('#ddProjectDetail .modal-body').empty().html(node);
+                        $('#ddProjectDetail').modal('show');
+                    }
+                });
+            }
+            else
+            {
+                   ShowMessage('warning', 'Warning', 'Please Select Row first..')
+             }
+        });
+    //Refresh
+
+
+    $("#btnRefresh").on("click", function () {
+        debugger
+        console.log("before");
+        $('#KGproject').data('kendoGrid').dataSource.read();
+        $('#KGproject').data('kendoGrid').refresh();
+        console.log("after");
+    });
+
+
+</script>
+
+
+

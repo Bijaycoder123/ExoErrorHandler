@@ -1,0 +1,4 @@
+D:\DotNet\WebFormAndSp\ExoErrorHandler\ExoErrorHandler\obj\Release\ExoErrorHandler.csproj.AssemblyReference.cache
+D:\DotNet\WebFormAndSp\ExoErrorHandler\ExoErrorHandler\obj\Release\ExoErrorHandler.csproj.CoreCompileInputs.cache
+D:\Users\bijay\source\repos\ExoErrorHandler\ExoErrorHandler\obj\Release\ExoErrorHandler.csproj.AssemblyReference.cache
+D:\Users\bijay\source\repos\ExoErrorHandler\ExoErrorHandler\obj\Release\ExoErrorHandler.csproj.CoreCompileInputs.cache

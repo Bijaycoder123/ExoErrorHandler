@@ -1,0 +1,104 @@
+﻿@cl-black:#000;
+@cl-white:#fff;
+@exo-bg:#0B7ED9;
+
+
+//side section
+.side-section{background:@exo-bg;
+    .header{
+        background:darken(@exo-bg,5%);
+    }
+    .aside-toggle{color:inherit}
+    .nav{
+        &>li>a,.nav-child>li>a{color:@cl-white}
+        .nav-child{
+            background-color:#6d6d6d;
+            &>li:hover>a{background-color:#989898}
+            &>.active>a,&>.active:hover>a{background-color:@exo-bg}
+        }
+        &>li{
+            &:hover>a,
+            &>a:hover,
+            &:hover>a:focus{background-color:lighten(@exo-bg,15%)}
+        }
+        &.active>a,
+        &.active:hover>a{color:#fff;background-color:#989898}
+        .nav-active>a,.nav-active>a>.txt,.has-child.nav-active>a,.has-child.nav-active>a:focus,.has-child.nav-active:hover>a,.has-child.nav-active>a>.txt{color:#fff;background-color:darken(@exo-bg,10%)!important}
+    }
+    &.active{
+        .navi-wrap{background-color:transparent}
+        .navi .nav>li:hover>a,.navi .nav>li:hover>a>.txt{background-color:lighten(@exo-bg,15%)}
+        .navi .has-child:hover>.nav-child{background-color:#6d6d6d}
+    }
+}
+
+.footer{background:darken(@cl-white,10%); border:1px solid darken(@cl-white,15%);}
+
+/*.head{color:@cl-white;background-color:@exo-bg}
+.aside{
+    background-color:#3e3e3e;
+    .aside-toggle{color:inherit}
+    .nav{
+        &>li>a,.nav-child>li>a{color:@cl-white}
+        .nav-child{
+            background-color:#6d6d6d;
+            &>li:hover>a{background-color:#989898}
+            &>.active>a,&>.active:hover>a{background-color:@exo-bg}
+        }
+        &>li{
+            &:hover>a,
+            &>a:hover,
+            &:hover>a:focus{background-color:lighten(@cl-black,15%)}
+        }
+        &.active>a,
+        &.active:hover>a{color:#fff;background-color:#989898}
+        .nav-active>a,.nav-active>a>.txt,.has-child.nav-active>a,.has-child.nav-active>a:focus,.has-child.nav-active:hover>a,.has-child.nav-active>a>.txt{color:#fff;background-color:lighten(@cl-black,20%)!important}
+    }
+    &.active{
+        .navi-wrap{background-color:transparent}
+        .navi .nav>li:hover>a,.navi .nav>li:hover>a>.txt{background-color:lighten(@cl-black,15%)}
+        .navi .has-child:hover>.nav-child{background-color:#6d6d6d}
+    }
+}*/
+.dropdown-menu>.title{color:@cl-black}
+.main-section{
+    .navbar-right{
+        .notice .notice-count{background-color:rgba(0,0,0,.75)}
+    }
+}
+
+//panel
+.panel{
+    &.panel-info{
+        border-color: lighten(@exo-bg,30%);
+        .panel-heading{
+            border-radius: 0;
+            background-color:lighten(@exo-bg,40%);
+            border-color: lighten(@exo-bg,30%);
+            .panel-title{
+                margin-top:0;
+                margin-bottom: 0;
+                font-size: 16px;
+            }
+        }
+    }
+}
+//Loader
+.loader-wrap,.loader .bar .dot{background:fade(@cl-black,80%)}
+
+//Kendo
+.k-grid{
+    .k-grouping-header{
+        background-color:lighten(@cl-black,40%);
+        .k-group-indicator{background-color:lighten(@cl-black,25%);border:none}
+    }
+    .k-header.k-grid-toolbar{background-color:lighten(@cl-black,88%)}
+}
+ 
+//Kendo Calendar
+.k-calendar .k-header,
+.k-calendar .k-today{
+    background-color:@exo-bg;
+    .k-state-hover{background-color:darken(@exo-bg,10%)}
+}
+.k-calendar .k-footer .k-nav-today{color:@exo-bg;}

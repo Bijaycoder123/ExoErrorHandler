@@ -1,0 +1,307 @@
+﻿@model MODEL.Organization
+
+@{ ViewBag.Title = "Index"; }
+
+
+
+<h2>Organization</h2>
+
+
+
+
+<div class="panel panel-info text-left mar-b-10">
+    <div class="panel-heading">
+        <div id="gridToolBar">
+            <button type="button" class="btn btn-pri" id="btnAddServices">
+                <i class="mdif mdif-plus px-3"></i>
+                Add
+            </button>
+            <button type="button" class="btn btn-success" id="btnEditServices">
+                <i class="mdif mdif-edit"></i>
+                Edit
+            </button>
+            <button type="button" class="btn btn-dan" id="btnDeleteServices">
+                <i class="mdif mdif-close"></i>
+                Delete
+            </button>
+            <button type="button" class="btn btn-success" id="btnRefresh">
+                <i class="mdif mdif-edit"></i>
+                Refresh
+            </button>
+            @*<div class="olSearch fr float-right">
+                <input type="text" id="Search" placeholder="Enter product/category name For Search" name="Search" class="inputComn houseText form-control" />
+                <div class="searchIcon">
+                <button id="btnSearch" type="button" class="btn btn-primary ">Search</button>
+                </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+@*popup*@
+<div id="ddProjectDetail" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add/Edit Organization</h4>
+
+            </div>
+            <div class="modal-body">
+
+
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-suc" id="btnSaveServices">
+                    <i class="mdif mdif-save"></i>
+                    Save
+                </button>
+                <button type="button" class="btn btn-info" id="btnCancel" data-dismiss="modal">
+                    <i class="mdif mdif-close"></i>
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+
+
+
+    @(Html.Kendo().Grid<MODEL.Organization>()
+            .Name("KGOrganization")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.OrganizationId).Width(20).Hidden();
+                columns.Bound(p => p.OrganizationName).Width(20);
+                columns.Bound(p => p.OrganizationDescription).Width(20);
+                columns.Bound(p => p.OrganizationAddress).Width(20);
+                columns.Bound(p => p.OrganizationPhone).Width(20);
+                columns.Bound(p => p.OrganizationContactPerson).Width(20);
+               // columns.Template(p => { }).ClientTemplate("<button type='button' onclick='ViewDetails(#:OrganizationId#, this);' >View</button>").Width(20).Title("Action");
+            })
+            .Scrollable(s => s.Height("auto"))
+            .Pageable(pageable => pageable
+            .ButtonCount(5)
+            .PageSizes(new int[] { 10, 50, 100 })
+            .Refresh(true))
+            .Filterable(filterable => filterable
+            .Extra(false)
+            .Operators(operators => operators
+            .ForString(str => str.Clear()
+            .StartsWith("Starts with")
+            .IsEqualTo("Is equal to")
+            .IsNotEqualTo("Is not equal to")
+            
+            .Contains("Contains")
+            ))
+            )
+            .Sortable()
+            .Selectable(selectable => selectable
+            .Mode(GridSelectionMode.Single)
+            .Type(GridSelectionType.Row))
+            //.ClientDetailTemplateId("template")
+            .DataSource(dataSource => dataSource
+            .Ajax()
+            //.Sort(x => x.Add("Product_ID").Descending())
+            .PageSize(10)
+           // .Read(read => read.Action("GetAllProducts", "Product",new {@Search=""}))
+           .Read(read => read.Action("Index1", "Organization"))
+            )
+            .Resizable(resize => resize.Columns(true))
+            )
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+            $('#btnAddServices').on("click", function ()
+            {
+                var title = 'Add Organization Detail'
+                var ProductId= 0;
+                $("#ddProjectDetail .modal-title").text(title);
+                $.ajax({
+                type: 'GET',
+                url: '@Url.Content("~/Organization/AddEdit")',
+                data: { id: 0 },
+                success: function (node)
+                {
+                    $('#ddProjectDetail .modal-body').empty().html(node);
+                    $('#ddProjectDetail').modal('show');
+                }
+                });
+            });
+
+
+
+
+
+
+            $('#btnSaveServices').on("click", function () {
+                debugger;
+                var organizationId = parseInt($('#OrganizationId').val());
+                if (typeof organizationId === 'undefined' || isNaN(organizationId))
+                {
+                    organizationId = 0;
+                }
+                $.validator.setDefaults({ ignore: [] });
+                $('#organizationFormValidate').removeData("validator").removeData("unobtrusiveValidation");
+                var validator = $("#organizationFormValidate").validate();
+                //var datasource = $("#KGOrganization").data("kendoGrid").dataSource;
+                if ($('#organizationFormValidate').valid()) {
+                var model = {
+                    OrganizationId: organizationId,
+                    OrganizationName: $('#OrganizationName').val(),
+                    OrganizationDescription: $('#OrganizationDescription').val(),
+                    OrganizationAddress: $('#OrganizationAddress').val(),
+                    OrganizationPhone: $('#OrganizationPhone').val(),
+                    OrganizationContactPerson: $('#OrganizationContactPerson').val()
+                }
+                    $.ajax({
+                        type: 'POST',
+                        url: "@Url.Content("~/Organization/AddEdit")",
+                        data: model,
+                        success: function (result) {
+                            debugger;
+                            //console.log("nischal" + result);
+                             //$("#ddProjectDetail").modal('hide');
+                             //   $('#KGOrganization').data('kendoGrid').dataSource.read();
+                             //   $('#KGOrganization').data('kendoGrid').refresh();
+                             //   ShowMessage('success', 'Success', 'Saved Successfully');
+                            if (result.IsSuccess == true) {
+                                debugger;
+                                $("#ddProjectDetail").modal('hide');
+                                ShowMessage('success', 'success',result.ReturnMsg )
+                            }
+                            else if ((result.IsSuccess == false)) {
+                                ShowMessage('warning', 'Warning', result.ReturnMsg)
+                            }
+                            else
+                            {
+                                /*ShowMessage('error', 'error', result.ReturnMessage)*/
+                                ShowMessage('error', 'Error', 'Error in saving!!!!')
+                            }
+                        }
+                    });
+                }
+            });
+
+
+
+
+
+            $('#btnDeleteServices').on("click", function () {
+            debugger
+            var grid = $('#KGOrganization').data("kendoGrid");
+            var selectedRow = grid.dataItem(grid.select());
+            var title = 'Disable Organization';
+            $("#ddProjectDetail .modal-title").text(title);
+            if (selectedRow != null) {
+                var  OrganizationId = selectedRow.OrganizationId;
+                var ans = confirm("Are you sure you want to delete this Record?");
+                if (ans) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "@Url.Content("~/Organization/Delete")",
+                        data: { Id: OrganizationId },
+                        success: function (result) {
+                            debugger;
+                            //$("#ddProjectDetail").modal('hide');
+                            //$('#KGOrganization').data('kendoGrid').dataSource.read();
+                            //$('#KGOrganization').data('kendoGrid').refresh();
+                            //ShowMessage('success', 'Success', result.ReturnMessage);
+                            //debugger;
+                            if (result.IsSuccess = true) {
+                                debugger;
+                                $("#ddProjectDetail").modal('hide');
+                                $('#KGOrganization').data('kendoGrid').dataSource.read();
+                                $('#KGOrganization').data('kendoGrid').refresh();
+                                ShowMessage('success', 'success', result.ReturnMessage);
+                            }
+                            else {
+                                ShowMessage('success', 'success', result.ReturnMessage);
+                            }
+                        }
+                     });
+                }
+            }
+            else {
+                ShowMessage('warning', 'Warning', 'Please Select Row first..');
+            }
+            });
+        });
+
+
+
+    $("#btnRefresh").on("click", function () {
+        debugger
+        console.log("before");
+        $('#KGOrganization').data('kendoGrid').dataSource.read();
+        $('#KGOrganization').data('kendoGrid').refresh();
+        console.log("after");
+        });
+
+
+
+
+
+        $('#btnEditServices').on("click", function () {
+            debugger
+            var grid = $('#KGOrganization').data("kendoGrid");
+            var selectedRow = grid.dataItem(grid.select());
+            var title = 'Edit Organization Details'
+            $("#ddProjectDetail .modal-title").text(title);
+            if (selectedRow != null) {
+                OrganizationId= selectedRow.OrganizationId;
+                $.ajax({
+                    url: '@Url.Content("~/Organization/AddEdit")',
+                    type: 'GET',
+                    data: { id: OrganizationId },
+                    success: function (node) {
+                        debugger;
+                    $('#ddProjectDetail .modal-body').empty().html(node);
+                        $('#ddProjectDetail').modal('show');
+                    }
+                });
+            }
+            else
+            {
+                   ShowMessage('warning', 'Warning', 'Please Select Row first..')
+             }
+        });
+
+
+
+
+        function ViewDetails(OrganizationId) {
+                debugger;
+                var title = ' Organization Details'
+                $("#ddProjectDetail .modal-title").text(title);
+                //if (selectedRow != null) {
+                //    ProductId = selectedRow.ProductId;
+                $.ajax({
+                    url: '@Url.Content("~/Organization/Details")',
+                    type: 'GET',
+                    data: { id: OrganizationId },
+                    success: function (node) {
+                        $('#ddProjectDetail .modal-body').empty().html(node);
+
+                        $('#ddProjectDetail').on('show.bs.modal', function () {
+                            $(this).find('.modal-footer').addClass('hidden');
+                        });
+                        $('#ddProjectDetail').modal('show');
+                    }
+                });
+
+        }
+
+
+
+
+
+
+</script>

@@ -1,0 +1,630 @@
+.clearfix(){
+    &:after,&:before{content:'';display:table}
+    &:after{clear:both;display:block}
+}
+.text-excerpt{
+    white-space:nowrap;
+    overflow:hidden;
+    -ms-text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    text-overflow:ellipsis;
+}
+.box-sizing(@type){
+    -webkit-box-sizing:@type!important;
+    -moz-box-sizing:@type!important;
+    -o-box-sizing:@type!important;
+    box-sizing:@type!important;
+}
+.mar(@mt:a, @mr:a, @mb:a, @ml:a, @ma:a){
+  & when (@mt > 0){
+	margin-top:@mt*1px!important;
+  }
+  & when (@mr > 0){
+	margin-right:@mr*1px!important;
+  }
+  & when (@mb > 0){
+	margin-bottom:@mb*1px!important;
+  }
+  & when (@ml > 0){
+	margin-left:@ml*1px!important;
+  }
+  & when (@ma > 0){
+	margin:@ma*1px!important;
+  }
+  & when (@mt = 0){
+	margin-top:0!important;
+  }
+  & when (@mr = 0){
+	margin-right:0!important;
+  }
+  & when (@mb = 0){
+	margin-bottom:0!important;
+  }
+  & when (@ml = 0){
+	margin-left:0!important;
+  }
+  & when (@ma = 0){
+	margin:0!important;
+  }
+}
+.pad(@pt:a, @pr:a, @pb:a, @pl:a, @pa:a){
+  & when (@pt > 0){
+	padding-top:@pt*1px!important;
+  }
+  & when (@pr > 0){
+	padding-right:@pr*1px!important;
+  }
+  & when (@pb > 0){
+	padding-bottom:@pb*1px!important;
+  }
+  & when (@pl > 0){
+	padding-left:@pl*1px!important;
+  }
+  & when (@pa > 0){
+	padding:@pa*1px!important;
+  }
+  & when (@pt = 0){
+	padding-top:0!important;
+  }
+  & when (@pr = 0){
+	padding-right:0!important;
+  }
+  & when (@pb = 0){
+	padding-bottom:0!important;
+  }
+  & when (@pl = 0){
+	padding-left:0!important;
+  }
+  & when (@pa = 0){
+	padding:0!important;
+  }
+}
+.mar-0{.mar(@ma:0)}
+.mar-2{.mar(@ma:2)}
+.mar-4{.mar(@ma:4)}
+.mar-6{.mar(@ma:6)}
+.mar-8{.mar(@ma:8)}
+.mar-10{.mar(@ma:10)}
+.mar-12{.mar(@ma:12)}
+.mar-15{.mar(@ma:15)}
+
+.mar-t-0{.mar(@mt:0)}
+.mar-r-0{.mar(@mr:0)}
+.mar-b-0{.mar(@mb:0)}
+.mar-l-0{.mar(@ml:0)}
+
+.mar-t-2{.mar(@mt:2)}
+.mar-r-2{.mar(@mr:2)}
+.mar-b-2{.mar(@mb:2)}
+.mar-l-2{.mar(@ml:2)}
+
+.mar-t-4{.mar(@mt:4)}
+.mar-r-4{.mar(@mr:4)}
+.mar-b-4{.mar(@mb:4)}
+.mar-l-4{.mar(@ml:4)}
+
+.mar-t-6{.mar(@mt:6)}
+.mar-r-6{.mar(@mr:6)}
+.mar-b-6{.mar(@mb:6)}
+.mar-l-6{.mar(@ml:6)}
+
+.mar-t-8{.mar(@mt:8)}
+.mar-r-8{.mar(@mr:8)}
+.mar-b-8{.mar(@mb:8)}
+.mar-l-8{.mar(@ml:8)}
+
+.mar-t-10{.mar(@mt:10)}
+.mar-r-10{.mar(@mr:10)}
+.mar-b-10{.mar(@mb:10)}
+.mar-l-10{.mar(@ml:10)}
+
+.mar-t-12{.mar(@mt:12)}
+.mar-r-12{.mar(@mr:12)}
+.mar-b-12{.mar(@mb:12)}
+.mar-l-12{.mar(@ml:12)}
+
+.mar-t-15{.mar(@mt:15)}
+.mar-r-15{.mar(@mr:15)}
+.mar-b-15{.mar(@mb:15)}
+.mar-l-15{.mar(@ml:15)}
+
+.pad-0{.pad(@pa:0)}
+.pad-2{.pad(@pa:2)}
+.pad-4{.pad(@pa:4)}
+.pad-6{.pad(@pa:6)}
+.pad-8{.pad(@pa:8)}
+.pad-10{.pad(@pa:10)}
+.pad-12{.pad(@pa:12)}
+.pad-15{.pad(@pa:15)}
+
+.pad-t-0{.pad(@pt:0)}
+.pad-r-0{.pad(@pr:0)}
+.pad-b-0{.pad(@pb:0)}
+.pad-l-0{.pad(@pl:0)}
+
+.pad-t-2{.pad(@pt:2)}
+.pad-r-2{.pad(@pr:2)}
+.pad-b-2{.pad(@pb:2)}
+.pad-l-2{.pad(@pl:2)}
+
+.pad-t-4{.pad(@pt:4)}
+.pad-r-4{.pad(@pr:4)}
+.pad-b-4{.pad(@pb:4)}
+.pad-l-4{.pad(@pl:4)}
+
+.pad-t-6{.pad(@pt:6)}
+.pad-r-6{.pad(@pr:6)}
+.pad-b-6{.pad(@pb:6)}
+.pad-l-6{.pad(@pl:6)}
+
+.pad-t-8{.pad(@pt:8)}
+.pad-r-8{.pad(@pr:8)}
+.pad-b-8{.pad(@pb:8)}
+.pad-l-8{.pad(@pl:8)}
+
+.pad-t-10{.pad(@pt:10)}
+.pad-r-10{.pad(@pr:10)}
+.pad-b-10{.pad(@pb:10)}
+.pad-l-10{.pad(@pl:10)}
+
+.pad-t-12{.pad(@pt:12)}
+.pad-r-12{.pad(@pr:12)}
+.pad-b-12{.pad(@pb:12)}
+.pad-l-12{.pad(@pl:12)}
+
+.pad-t-15{.pad(@pt:15)}
+.pad-r-15{.pad(@pr:15)}
+.pad-b-15{.pad(@pb:15)}
+.pad-l-15{.pad(@pl:15)}
+
+.no-list(){
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+.btn-hover(@c){
+    background:darken(@c,20%);
+}
+.transform(@type,@value){
+    & when (@type = scale){
+        -webkit-transform: scale(@value);
+        -moz-transform:    scale(@value);
+        -ms-transform:     scale(@value);
+        -o-transform:      scale(@value);
+        transform:         scale(@value);
+    }
+    & when (@type = rotate){
+        -webkit-transform: rotate(@value*1deg);
+        -moz-transform:    rotate(@value*1deg);
+        -ms-transform:     rotate(@value*1deg);
+        -o-transform:      rotate(@value*1deg);
+        transform:         rotate(@value*1deg);
+    }
+}
+.translate(@axis, @value){
+    & when (@axis = X){
+        -webkit-transform: translateX(@value);
+        -moz-transform:    translateX(@value);
+        -ms-transform:     translateX(@value);
+        -o-transform:      translateX(@value);
+        transform:         translateX(@value);
+    }
+    & when (@axis = Y){
+        -webkit-transform: translateY(@value);
+        -moz-transform:    translateY(@value);
+        -ms-transform:     translateY(@value);
+        -o-transform:      translateY(@value);
+        transform:         translateY(@value);
+    }
+}
+.transition(@dur-in:0.4s, @ease:ease-in-out, @dur-out:0s){
+    -webkit-transition: all @dur-in @ease @dur-out;
+    -moz-transition:    all @dur-in @ease @dur-out;
+    transition:         all @dur-in @ease @dur-out;
+}
+.animation(@name, @duration:0.4s, @duration-count:infinite, @timing-function:ease){
+  -webkit-animation: @name @duration @duration-count @timing-function;
+  -moz-animation: @name @duration @duration-count @timing-function;
+  -o-animation: @name @duration @duration-count @timing-function;
+  animation: @name @duration @duration-count @timing-function;
+}
+
+@media (min-width:768px){
+    .mar-sm-0{.mar(@ma:0)}
+    .mar-sm-2{.mar(@ma:2)}
+    .mar-sm-4{.mar(@ma:4)}
+    .mar-sm-6{.mar(@ma:6)}
+    .mar-sm-8{.mar(@ma:8)}
+    .mar-sm-10{.mar(@ma:10)}
+    .mar-sm-12{.mar(@ma:12)}
+    .mar-sm-15{.mar(@ma:15)}
+
+    .mar-sm-t-0{.mar(@mt:0)}
+    .mar-sm-r-0{.mar(@mr:0)}
+    .mar-sm-b-0{.mar(@mb:0)}
+    .mar-sm-l-0{.mar(@ml:0)}
+
+    .mar-sm-t-2{.mar(@mt:2)}
+    .mar-sm-r-2{.mar(@mr:2)}
+    .mar-sm-b-2{.mar(@mb:2)}
+    .mar-sm-l-2{.mar(@ml:2)}
+
+    .mar-sm-t-4{.mar(@mt:4)}
+    .mar-sm-r-4{.mar(@mr:4)}
+    .mar-sm-b-4{.mar(@mb:4)}
+    .mar-sm-l-4{.mar(@ml:4)}
+
+    .mar-sm-t-6{.mar(@mt:6)}
+    .mar-sm-r-6{.mar(@mr:6)}
+    .mar-sm-b-6{.mar(@mb:6)}
+    .mar-sm-l-6{.mar(@ml:6)}
+
+    .mar-sm-t-8{.mar(@mt:8)}
+    .mar-sm-r-8{.mar(@mr:8)}
+    .mar-sm-b-8{.mar(@mb:8)}
+    .mar-sm-l-8{.mar(@ml:8)}
+
+    .mar-sm-t-10{.mar(@mt:10)}
+    .mar-sm-r-10{.mar(@mr:10)}
+    .mar-sm-b-10{.mar(@mb:10)}
+    .mar-sm-l-10{.mar(@ml:10)}
+
+    .mar-sm-t-12{.mar(@mt:12)}
+    .mar-sm-r-12{.mar(@mr:12)}
+    .mar-sm-b-12{.mar(@mb:12)}
+    .mar-sm-l-12{.mar(@ml:12)}
+
+    .mar-sm-t-15{.mar(@mt:15)}
+    .mar-sm-r-15{.mar(@mr:15)}
+    .mar-sm-b-15{.mar(@mb:15)}
+    .mar-sm-l-15{.mar(@ml:15)}
+
+    .pad-sm-0{.pad(@pa:0)}
+    .pad-sm-2{.pad(@pa:2)}
+    .pad-sm-4{.pad(@pa:4)}
+    .pad-sm-6{.pad(@pa:6)}
+    .pad-sm-8{.pad(@pa:8)}
+    .pad-sm-10{.pad(@pa:10)}
+    .pad-sm-12{.pad(@pa:12)}
+    .pad-sm-15{.pad(@pa:15)}
+
+    .pad-sm-t-0{.pad(@pt:0)}
+    .pad-sm-r-0{.pad(@pr:0)}
+    .pad-sm-b-0{.pad(@pb:0)}
+    .pad-sm-l-0{.pad(@pl:0)}
+
+    .pad-sm-t-2{.pad(@pt:2)}
+    .pad-sm-r-2{.pad(@pr:2)}
+    .pad-sm-b-2{.pad(@pb:2)}
+    .pad-sm-l-2{.pad(@pl:2)}
+
+    .pad-sm-t-4{.pad(@pt:4)}
+    .pad-sm-r-4{.pad(@pr:4)}
+    .pad-sm-b-4{.pad(@pb:4)}
+    .pad-sm-l-4{.pad(@pl:4)}
+
+    .pad-sm-t-6{.pad(@pt:6)}
+    .pad-sm-r-6{.pad(@pr:6)}
+    .pad-sm-b-6{.pad(@pb:6)}
+    .pad-sm-l-6{.pad(@pl:6)}
+
+    .pad-sm-t-8{.pad(@pt:8)}
+    .pad-sm-r-8{.pad(@pr:8)}
+    .pad-sm-b-8{.pad(@pb:8)}
+    .pad-sm-l-8{.pad(@pl:8)}
+
+    .pad-sm-t-10{.pad(@pt:10)}
+    .pad-sm-r-10{.pad(@pr:10)}
+    .pad-sm-b-10{.pad(@pb:10)}
+    .pad-sm-l-10{.pad(@pl:10)}
+
+    .pad-sm-t-12{.pad(@pt:12)}
+    .pad-sm-r-12{.pad(@pr:12)}
+    .pad-sm-b-12{.pad(@pb:12)}
+    .pad-sm-l-12{.pad(@pl:12)}
+
+    .pad-sm-t-15{.pad(@pt:15)}
+    .pad-sm-r-15{.pad(@pr:15)}
+    .pad-sm-b-15{.pad(@pb:15)}
+    .pad-sm-l-15{.pad(@pl:15)}
+}
+
+@media (min-width:992px){
+	.mar-md-0{.mar(@ma:0)}
+    .mar-md-2{.mar(@ma:2)}
+    .mar-md-4{.mar(@ma:4)}
+    .mar-md-6{.mar(@ma:6)}
+    .mar-md-8{.mar(@ma:8)}
+    .mar-md-10{.mar(@ma:10)}
+    .mar-md-12{.mar(@ma:12)}
+    .mar-md-15{.mar(@ma:15)}
+
+    .mar-md-t-0{.mar(@mt:0)}
+    .mar-md-r-0{.mar(@mr:0)}
+    .mar-md-b-0{.mar(@mb:0)}
+    .mar-md-l-0{.mar(@ml:0)}
+
+    .mar-md-t-2{.mar(@mt:2)}
+    .mar-md-r-2{.mar(@mr:2)}
+    .mar-md-b-2{.mar(@mb:2)}
+    .mar-md-l-2{.mar(@ml:2)}
+
+    .mar-md-t-4{.mar(@mt:4)}
+    .mar-md-r-4{.mar(@mr:4)}
+    .mar-md-b-4{.mar(@mb:4)}
+    .mar-md-l-4{.mar(@ml:4)}
+
+    .mar-md-t-6{.mar(@mt:6)}
+    .mar-md-r-6{.mar(@mr:6)}
+    .mar-md-b-6{.mar(@mb:6)}
+    .mar-md-l-6{.mar(@ml:6)}
+
+    .mar-md-t-8{.mar(@mt:8)}
+    .mar-md-r-8{.mar(@mr:8)}
+    .mar-md-b-8{.mar(@mb:8)}
+    .mar-md-l-8{.mar(@ml:8)}
+
+    .mar-md-t-10{.mar(@mt:10)}
+    .mar-md-r-10{.mar(@mr:10)}
+    .mar-md-b-10{.mar(@mb:10)}
+    .mar-md-l-10{.mar(@ml:10)}
+
+    .mar-md-t-12{.mar(@mt:12)}
+    .mar-md-r-12{.mar(@mr:12)}
+    .mar-md-b-12{.mar(@mb:12)}
+    .mar-md-l-12{.mar(@ml:12)}
+
+    .mar-md-t-15{.mar(@mt:15)}
+    .mar-md-r-15{.mar(@mr:15)}
+    .mar-md-b-15{.mar(@mb:15)}
+    .mar-md-l-15{.mar(@ml:15)}
+
+    .pad-md-0{.pad(@pa:0)}
+    .pad-md-2{.pad(@pa:2)}
+    .pad-md-4{.pad(@pa:4)}
+    .pad-md-6{.pad(@pa:6)}
+    .pad-md-8{.pad(@pa:8)}
+    .pad-md-10{.pad(@pa:10)}
+    .pad-md-12{.pad(@pa:12)}
+    .pad-md-15{.pad(@pa:15)}
+
+    .pad-md-t-0{.pad(@pt:0)}
+    .pad-md-r-0{.pad(@pr:0)}
+    .pad-md-b-0{.pad(@pb:0)}
+    .pad-md-l-0{.pad(@pl:0)}
+
+    .pad-md-t-2{.pad(@pt:2)}
+    .pad-md-r-2{.pad(@pr:2)}
+    .pad-md-b-2{.pad(@pb:2)}
+    .pad-md-l-2{.pad(@pl:2)}
+
+    .pad-md-t-4{.pad(@pt:4)}
+    .pad-md-r-4{.pad(@pr:4)}
+    .pad-md-b-4{.pad(@pb:4)}
+    .pad-md-l-4{.pad(@pl:4)}
+
+    .pad-md-t-6{.pad(@pt:6)}
+    .pad-md-r-6{.pad(@pr:6)}
+    .pad-md-b-6{.pad(@pb:6)}
+    .pad-md-l-6{.pad(@pl:6)}
+
+    .pad-md-t-8{.pad(@pt:8)}
+    .pad-md-r-8{.pad(@pr:8)}
+    .pad-md-b-8{.pad(@pb:8)}
+    .pad-md-l-8{.pad(@pl:8)}
+
+    .pad-md-t-10{.pad(@pt:10)}
+    .pad-md-r-10{.pad(@pr:10)}
+    .pad-md-b-10{.pad(@pb:10)}
+    .pad-md-l-10{.pad(@pl:10)}
+
+    .pad-md-t-12{.pad(@pt:12)}
+    .pad-md-r-12{.pad(@pr:12)}
+    .pad-md-b-12{.pad(@pb:12)}
+    .pad-md-l-12{.pad(@pl:12)}
+
+    .pad-md-t-15{.pad(@pl:15)}
+    .pad-md-r-15{.pad(@pr:15)}
+    .pad-md-b-15{.pad(@pb:15)}
+    .pad-md-l-15{.pad(@pl:15)}
+}
+
+@media (min-width:1200px){
+		    .mar-lg-0{.mar(@ma:0)}
+    .mar-lg-2{.mar(@ma:2)}
+    .mar-lg-4{.mar(@ma:4)}
+    .mar-lg-6{.mar(@ma:6)}
+    .mar-lg-8{.mar(@ma:8)}
+    .mar-lg-10{.mar(@ma:10)}
+    .mar-lg-12{.mar(@ma:12)}
+    .mar-lg-15{.mar(@ma:15)}
+
+    .mar-lg-t-0{.mar(@mt:0)}
+    .mar-lg-r-0{.mar(@mr:0)}
+    .mar-lg-b-0{.mar(@mb:0)}
+    .mar-lg-l-0{.mar(@ml:0)}
+
+    .mar-lg-t-2{.mar(@mt:2)}
+    .mar-lg-r-2{.mar(@mr:2)}
+    .mar-lg-b-2{.mar(@mb:2)}
+    .mar-lg-l-2{.mar(@ml:2)}
+
+    .mar-lg-t-4{.mar(@mt:4)}
+    .mar-lg-r-4{.mar(@mr:4)}
+    .mar-lg-b-4{.mar(@mb:4)}
+    .mar-lg-l-4{.mar(@ml:4)}
+
+    .mar-lg-t-6{.mar(@mt:6)}
+    .mar-lg-r-6{.mar(@mr:6)}
+    .mar-lg-b-6{.mar(@mb:6)}
+    .mar-lg-l-6{.mar(@ml:6)}
+
+    .mar-lg-t-8{.mar(@mt:8)}
+    .mar-lg-r-8{.mar(@mr:8)}
+    .mar-lg-b-8{.mar(@mb:8)}
+    .mar-lg-l-8{.mar(@ml:8)}
+
+    .mar-lg-t-10{.mar(@mt:10)}
+    .mar-lg-r-10{.mar(@mr:10)}
+    .mar-lg-b-10{.mar(@mb:10)}
+    .mar-lg-l-10{.mar(@ml:10)}
+
+    .mar-lg-t-12{.mar(@mt:12)}
+    .mar-lg-r-12{.mar(@mr:12)}
+    .mar-lg-b-12{.mar(@mb:12)}
+    .mar-lg-l-12{.mar(@ml:12)}
+
+    .mar-lg-t-15{.mar(@mt:15)}
+    .mar-lg-r-15{.mar(@mr:15)}
+    .mar-lg-b-15{.mar(@mb:15)}
+    .mar-lg-l-15{.mar(@ml:15)}
+
+    .pad-lg-0{.pad(@pa:0)}
+    .pad-lg-2{.pad(@pa:2)}
+    .pad-lg-4{.pad(@pa:4)}
+    .pad-lg-6{.pad(@pa:6)}
+    .pad-lg-8{.pad(@pa:8)}
+    .pad-lg-10{.pad(@pa:10)}
+    .pad-lg-12{.pad(@pa:12)}
+    .pad-lg-15{.pad(@pa:15)}
+
+    .pad-lg-t-0{.pad(@pt:0)}
+    .pad-lg-r-0{.pad(@pr:0)}
+    .pad-lg-b-0{.pad(@pb:0)}
+    .pad-lg-l-0{.pad(@pl:0)}
+
+    .pad-lg-t-2{.pad(@pt:2)}
+    .pad-lg-r-2{.pad(@pr:2)}
+    .pad-lg-b-2{.pad(@pb:2)}
+    .pad-lg-l-2{.pad(@pl:2)}
+
+    .pad-lg-t-4{.pad(@pt:4)}
+    .pad-lg-r-4{.pad(@pr:4)}
+    .pad-lg-b-4{.pad(@pb:4)}
+    .pad-lg-l-4{.pad(@pl:4)}
+
+    .pad-lg-t-6{.pad(@pt:6)}
+    .pad-lg-r-6{.pad(@pr:6)}
+    .pad-lg-b-6{.pad(@pb:6)}
+    .pad-lg-l-6{.pad(@pl:6)}
+
+    .pad-lg-t-8{.pad(@pt:8)}
+    .pad-lg-r-8{.pad(@pr:8)}
+    .pad-lg-b-8{.pad(@pb:8)}
+    .pad-lg-l-8{.pad(@pl:8)}
+
+    .pad-lg-t-10{.pad(@pt:10)}
+    .pad-lg-r-10{.pad(@pr:10)}
+    .pad-lg-b-10{.pad(@pb:10)}
+    .pad-lg-l-10{.pad(@pl:10)}
+
+    .pad-lg-t-12{.pad(@pt:12)}
+    .pad-lg-r-12{.pad(@pr:12)}
+    .pad-lg-b-12{.pad(@pb:12)}
+    .pad-lg-l-12{.pad(@pl:12)}
+
+    .pad-lg-t-15{.pad(@pl:15)}
+    .pad-lg-r-15{.pad(@pr:15)}
+    .pad-lg-b-15{.pad(@pb:15)}
+    .pad-lg-l-15{.pad(@pl:15)}
+}
+
+@media (max-width:768px){
+	.mar-xs-0{.mar(@ma:0)}
+	.mar-xs-2{.mar(@ma:2)}
+    .mar-xs-4{.mar(@ma:4)}
+    .mar-xs-6{.mar(@ma:6)}
+    .mar-xs-8{.mar(@ma:8)}
+    .mar-xs-10{.mar(@ma:10)}
+    .mar-xs-12{.mar(@ma:12)}
+    .mar-xs-15{.mar(@ma:15)}
+
+    .mar-xs-t-0{.mar(@mt:0)}
+    .mar-xs-r-0{.mar(@mr:0)}
+    .mar-xs-b-0{.mar(@mb:0)}
+    .mar-xs-l-0{.mar(@ml:0)}
+
+    .mar-xs-t-2{.mar(@mt:2)}
+    .mar-xs-r-2{.mar(@mr:2)}
+    .mar-xs-b-2{.mar(@mb:2)}
+    .mar-xs-l-2{.mar(@ml:2)}
+
+    .mar-xs-t-4{.mar(@mt:4)}
+    .mar-xs-r-4{.mar(@mr:4)}
+    .mar-xs-b-4{.mar(@mb:4)}
+    .mar-xs-l-4{.mar(@ml:4)}
+
+    .mar-xs-t-6{.mar(@mt:6)}
+    .mar-xs-r-6{.mar(@mr:6)}
+    .mar-xs-b-6{.mar(@mb:6)}
+    .mar-xs-l-6{.mar(@ml:6)}
+
+    .mar-xs-t-8{.mar(@mt:8)}
+    .mar-xs-r-8{.mar(@mr:8)}
+    .mar-xs-b-8{.mar(@mb:8)}
+    .mar-xs-l-8{.mar(@ml:8)}
+
+    .mar-xs-t-10{.mar(@mt:10)}
+    .mar-xs-r-10{.mar(@mr:10)}
+    .mar-xs-b-10{.mar(@mb:10)}
+    .mar-xs-l-10{.mar(@ml:10)}
+
+    .mar-xs-t-12{.mar(@mt:12)}
+    .mar-xs-r-12{.mar(@mr:12)}
+    .mar-xs-b-12{.mar(@mb:12)}
+    .mar-xs-l-12{.mar(@ml:12)}
+
+    .mar-xs-t-15{.mar(@mt:15)}
+    .mar-xs-r-15{.mar(@mr:15)}
+    .mar-xs-b-15{.mar(@mb:15)}
+    .mar-xs-l-15{.mar(@ml:15)}
+
+    .pad-xs-0{.pad(@pa:0)}
+    .pad-xs-2{.pad(@pa:2)}
+    .pad-xs-4{.pad(@pa:4)}
+    .pad-xs-6{.pad(@pa:6)}
+    .pad-xs-8{.pad(@pa:8)}
+    .pad-xs-10{.pad(@pa:10)}
+    .pad-xs-12{.pad(@pa:12)}
+    .pad-xs-15{.pad(@pa:15)}
+
+    .pad-xs-t-0{.pad(@pt:0)}
+    .pad-xs-r-0{.pad(@pr:0)}
+    .pad-xs-b-0{.pad(@pb:0)}
+    .pad-xs-l-0{.pad(@pl:0)}
+
+    .pad-xs-t-2{.pad(@pt:2)}
+    .pad-xs-r-2{.pad(@pr:2)}
+    .pad-xs-b-2{.pad(@pb:2)}
+    .pad-xs-l-2{.pad(@pl:2)}
+
+    .pad-xs-t-4{.pad(@pt:4)}
+    .pad-xs-r-4{.pad(@pr:4)}
+    .pad-xs-b-4{.pad(@pb:4)}
+    .pad-xs-l-4{.pad(@pl:4)}
+
+    .pad-xs-t-6{.pad(@pt:6)}
+    .pad-xs-r-6{.pad(@pr:6)}
+    .pad-xs-b-6{.pad(@pb:6)}
+    .pad-xs-l-6{.pad(@pl:6)}
+
+    .pad-xs-t-8{.pad(@pt:8)}
+    .pad-xs-r-8{.pad(@pr:8)}
+    .pad-xs-b-8{.pad(@pb:8)}
+    .pad-xs-l-8{.pad(@pl:8)}
+
+    .pad-xs-t-10{.pad(@pt:10)}
+    .pad-xs-r-10{.pad(@pr:10)}
+    .pad-xs-b-10{.pad(@pb:10)}
+    .pad-xs-l-10{.pad(@pl:10)}
+
+    .pad-xs-t-12{.pad(@pt:12)}
+    .pad-xs-r-12{.pad(@pr:12)}
+    .pad-xs-b-12{.pad(@pb:12)}
+    .pad-xs-l-12{.pad(@pl:12)}
+
+    .pad-xs-t-15{.pad(@pt:15)}
+    .pad-xs-r-15{.pad(@pr:15)}
+    .pad-xs-b-15{.pad(@pb:15)}
+    .pad-xs-l-15{.pad(@pl:15)}
+}

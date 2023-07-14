@@ -1,0 +1,172 @@
+﻿@model MODEL.IssueErrorView
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm("AddIssue", "IssueError", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary();
+
+    @*<div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-4">
+                @Html.DisplayNameFor(model => model.OrganizationName):
+                @Html.DropDownListFor(m => m.OrganizationId, ViewBag.OrganizationSelectList as SelectList, "--SELECT ORGANIZAION--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.OrganizationId, "", new { @class = "text-danger" })
+            </div>
+            <div class="col col-lg-4">
+                @Html.DisplayNameFor(model => model.ProjectName)::
+                @Html.DropDownListFor(m => m.ProjectId, new SelectList(""), "--SELECT PROJECT--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+            </div>
+            <div class="col col-lg-4">
+                @Html.DisplayNameFor(model => model.ModuleName)
+                @Html.DropDownListFor(m => m.ModuleId, new SelectList(""), "--SELECT MODULE--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModuleName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row justify-content-md-center mb-3">
+            <div class="col col-lg-4">
+                @Html.DisplayNameFor(model => model.ModuleName)
+                @Html.DropDownListFor(m => m.ModuleId, new SelectList(""), "--SELECT MODULE--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModuleName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col col-lg-4 mb-3">
+                <input type="file" id="Image" name="Image" />
+            </div>
+            <div class="col col-lg-4">
+                <img id="showImage" src="" alt="" height=180 width=200 />
+            </div>
+        </div>
+    </div>*@
+    <div class="container">
+
+
+
+        <div class="mb-3">
+
+            @Html.DisplayNameFor(model => model.OrganizationName)::
+            @Html.DropDownListFor(m => m.OrganizationId, ViewBag.OrganizationSelectList as SelectList, "--SELECT ORGANIZAION--", new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.OrganizationId, "", new { @class = "text-danger" })
+        </div>
+        <div class="mb-3">
+
+            @Html.DisplayNameFor(model => model.ProjectName)::
+            @Html.DropDownListFor(m => m.ProjectId, new SelectList(""), "--SELECT PROJECT--", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+        </div>
+        <div class="mb-3">
+
+            @Html.DisplayNameFor(model => model.ModuleName)
+            @Html.DropDownListFor(m => m.ModuleId, new SelectList(""), "--SELECT MODULE--", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ModuleName, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="mb-3">
+
+            @Html.DisplayNameFor(model => model.FullName)
+            @Html.DropDownListFor(m => m.UserId, ViewBag.DeveloperSelectList as SelectList, "--SELECT Developer--", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="mb-3">
+            <input type="file" id="Image" name="Image" />
+        </div>
+
+        <div class="mb-3">
+            <img id="showImage" src="~/Content/Upload/noimg.jpeg" alt="" height=180 width=200 />
+        </div>
+
+        <div class="mb-3">
+            @Html.DisplayNameFor(model => model.ErrorDescription)
+        </div>
+
+        <div class="mb-3">
+            @Html.TextAreaFor(m => m.ErrorDescription, 8, 100, new { @class = "required" })
+            @Html.ValidationMessageFor(model => model.ErrorDescription, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+
+
+    </div>
+
+
+}
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('#Image').change(function () {
+                //$(this).get(0).files[0] and this.files[0] are the same thing both return the  current file object'
+                var file = this.files[0];
+                var url = window.URL.createObjectURL(this.files[0]);
+                $('#showImage').attr("src", url);
+            });
+
+            //$('#form1').submit(function (event) {
+            //    event.preventDefault();
+            //
+            //    var formData = new FormData($(this)[0]);
+
+            //    $.ajax({
+            //        url: '/IssueError/AddIssue',
+            //        type: 'POST',
+            //        data: formData,
+            //        cache: false,
+            //        contentType: false,
+            //        processData: false,
+            //        success: function (data) {
+            //            console.log(data);
+            //            console.log("success");
+            //        },
+            //        error: function (xhr, textStatus, errorThrown) {
+            //            console.log(xhr.responseText);
+            //        }
+            //    });
+            //});
+
+
+
+            $("#OrganizationId").change(function () {
+
+                $.get("/Module/GetProjectByOrganizationId", { organizationId: $("#OrganizationId").val() }, function (data) {
+                    $("#ProjectId").empty();
+                    $("#ProjectId").append("<option>--SELECT PROJECT--</option>")
+
+                    $.each(data, function (index, row) {
+                        $("#ProjectId").append("<option value='" + row.ProjectId + "'>" + row.ProjectName + "</option>")
+                    });
+                });
+            });
+
+            $("#ProjectId").change(function () {
+
+                console.log("test1");
+
+                $.get("/Module/GetModuleByProjectId", { organizationId: $("#OrganizationId").val(), projectId: $("#ProjectId").val() }, function (data) {
+                    console.log("test33");
+                    $("#ModuleId").empty();
+                    $("#ModuleId").append("<option>--SELECT MODULE--</option>")
+
+                    $.each(data, function (index, row) {
+
+                        $("#ModuleId").append("<option value='" + row.ModuleId + "'>" + row.ModuleName + "</option>")
+                    });
+                });
+            });
+        });
+
+    </script>
+}
